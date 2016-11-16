@@ -4,6 +4,8 @@ namespace Puissance4
 {
     internal class Game
     {
+        private int lastUser;
+
         public int[,] Grille { get; set; }
         public Game()
         {
@@ -17,13 +19,28 @@ namespace Puissance4
 
         internal void DropToken(int user, int column)
         {
-            for(int rowIndex = 0; rowIndex < this.Rows; rowIndex++)
+            CheckNotSamePlayer(user);
+            for (int rowIndex = 0; rowIndex < this.Rows; rowIndex++)
             {
-                if(Grille[rowIndex, column] == 0)
+                if (Grille[rowIndex, column] == 0)
                 {
                     Grille[rowIndex, column] = user;
+                    SetLastPlayer(user);
                     break;
                 }
+            }
+        }
+
+        private void SetLastPlayer(int user)
+        {
+            lastUser = user;
+        }
+
+        private void CheckNotSamePlayer(int user)
+        {
+            if (user == lastUser)
+            {
+                throw new InvalidOperationException("A player can't play twice");
             }
         }
     }

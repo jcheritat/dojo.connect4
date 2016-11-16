@@ -65,18 +65,33 @@ namespace Puissance4
             puissance4.DropToken(user:2, column:4);
             TestOnlyBottomOfColumnIsFilledForPlayer(4, 2);
         }
+
         [TestMethod]
-        public void When_A_Player_Drops_A_Token_It_Stacks_Up()
+        public void When_Two_Players_Drop_A_Token_In_Same_Column_Then_Stack_Up()
         {
             const int column = 5;
-            const int player = 1;
+            const int player1 = 1;
+            const int player2 = 2;
 
-            puissance4.DropToken(player, column);
-            puissance4.DropToken(player, column);
+            puissance4.DropToken(player1, column);
+            puissance4.DropToken(player2, column);
 
-            Assert.AreEqual(player, puissance4.Grille[0, column]);
-            Assert.AreEqual(player, puissance4.Grille[1, column]);
+            Assert.AreEqual(player1, puissance4.Grille[0, column]);
+            Assert.AreEqual(player2, puissance4.Grille[1, column]);
             Assert.AreEqual(0, puissance4.Grille[2, column]);
         }
+
+        [TestMethod][ExpectedException(typeof(InvalidOperationException))]
+        public void When_A_Players_Plays_Twice_Then_Error()
+        {
+            const int column = 5;
+            const int player1 = 1;
+
+            puissance4.DropToken(player1, column);
+            puissance4.DropToken(player1, column);
+
+        }
+
+
     }
 }
