@@ -17,8 +17,14 @@ namespace Puissance4
 
         internal void DropToken(int user, int column)
         {
-            Grille[0, 5] = 1;
-            Grille[0, 4] = 2;
+            for(int rowIndex = 0; rowIndex < this.Rows; rowIndex++)
+            {
+                if(Grille[rowIndex, column] == 0)
+                {
+                    Grille[rowIndex, column] = user;
+                    break;
+                }
+            }
         }
     }
 }

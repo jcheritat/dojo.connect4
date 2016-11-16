@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace Puissance4
 {
@@ -11,6 +12,7 @@ namespace Puissance4
         public UnitTest1()
         {
             puissance4 = new Game();
+            Debug.WriteLine("Init");
         }
 
         [TestMethod]
@@ -30,17 +32,51 @@ namespace Puissance4
         [TestMethod]
         public void When_A_Player_Drops_A_Token_Goes_To_Bottom()
         {
-            puissance4.DropToken(1, 5);
+            int colToken = 5;
+            int player = 1;
+            puissance4.DropToken(player, colToken);
 
-            Assert.AreEqual(1, puissance4.Grille[0, 5]);
-            Assert.AreEqual(0, puissance4.Grille[0, 4]);
+            TestOnlyBottomOfColumnIsFilledForPlayer(colToken, player);
         }
+
+        private void TestOnlyBottomOfColumnIsFilledForPlayer(int colToken, int player)
+        {
+            for (var row = 0; row < puissance4.Rows; row++)
+            {
+                for (var col = 0; col < puissance4.Columns; col++)
+                {
+                    if (row == 0 && col == colToken)
+                    {
+                        Assert.AreEqual(player, puissance4.Grille[row, col]);
+                    }
+                    else
+                    {
+                        Assert.AreEqual(0, puissance4.Grille[row, col]);
+                    }
+                }
+            }
+        }
+
+
 
         [TestMethod]
         public void When_A_Player2_Drops_A_Token_Goes_To_Bottom()
         {
-            puissance4.DropToken(2, 4);
-            Assert.AreEqual(2, puissance4.Grille[0, 4]);
+            puissance4.DropToken(user:2, column:4);
+            TestOnlyBottomOfColumnIsFilledForPlayer(4, 2);
+        }
+        [TestMethod]
+        public void When_A_Player_Drops_A_Token_It_Stacks_Up()
+        {
+            const int column = 5;
+            const int player = 1;
+
+            puissance4.DropToken(player, column);
+            puissance4.DropToken(player, column);
+
+            Assert.AreEqual(player, puissance4.Grille[0, column]);
+            Assert.AreEqual(player, puissance4.Grille[1, column]);
+            Assert.AreEqual(0, puissance4.Grille[2, column]);
         }
     }
 }
