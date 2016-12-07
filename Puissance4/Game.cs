@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Puissance4
 {
@@ -32,22 +33,17 @@ namespace Puissance4
                 }
             }
 
-            if (IsUserWinHorizontal())
+            if (IsWinHorizontal())
             {
                 this.Winner = 1;
             }
         }
 
-        private bool IsUserWinHorizontal()
+        private bool IsWinHorizontal()
         {
-            bool ret = true;
-            for(int i = 0; i < 4; i++)
-            {
-                if (this.Grille[0, i] != 1)
-                    ret = false; 
-            }
-            return ret;
+            return Enumerable.Range(0, 4).All(column => Grille[0, column] == 1);
         }
+ 
 
         private void SetLastPlayer(int user)
         {
