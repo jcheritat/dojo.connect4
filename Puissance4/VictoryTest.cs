@@ -37,5 +37,16 @@ namespace Puissance4
             puissance4.DropToken(joueur1, 3);
             Assert.AreEqual(joueur1, puissance4.Winner);
         }
+
+        [TestMethod]
+        public void When_Play_For_First_Time_No_Winner()
+        {
+            var joueur1 = 1;
+            puissance4.DropToken(joueur1, 0);
+
+            Assert.AreEqual(0, puissance4.Winner);
+        }
+
+
     }
 }

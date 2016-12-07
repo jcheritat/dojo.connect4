@@ -9,3 +9,4 @@ List of features:
 * When a players plays twice an error is raised
 * When the game starts, no winner
 * When player drops four tokens horizontally, he wins
+* When play for First Time, no winner

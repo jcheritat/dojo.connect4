@@ -31,7 +31,22 @@ namespace Puissance4
                     break;
                 }
             }
-            this.Winner = 1;
+
+            if (IsUserWinHorizontal())
+            {
+                this.Winner = 1;
+            }
+        }
+
+        private bool IsUserWinHorizontal()
+        {
+            bool ret = true;
+            for(int i = 0; i < 4; i++)
+            {
+                if (this.Grille[0, i] != 1)
+                    ret = false; 
+            }
+            return ret;
         }
 
         private void SetLastPlayer(int user)
