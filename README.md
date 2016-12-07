@@ -7,3 +7,5 @@ List of features:
 * When player 2 drops a token if falls at the lowest position in the column
 * When player 1 drop a token and player 2 drop another token in the same column, they stack up
 * When a players plays twice an error is raised
+* When the game starts, no winner
+* When player drops four tokens horizontally, he wins

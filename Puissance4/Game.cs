@@ -12,10 +12,12 @@ namespace Puissance4
             Rows = 6;
             Columns = 7;
             Grille = new int[6, 7];
+            this.Winner = 0;
         }
 
         public int Rows { get; internal set; }
         public int Columns { get; internal set; }
+        public int Winner { get; private set; }
 
         internal void DropToken(int user, int column)
         {
@@ -29,6 +31,7 @@ namespace Puissance4
                     break;
                 }
             }
+            this.Winner = 1;
         }
 
         private void SetLastPlayer(int user)
